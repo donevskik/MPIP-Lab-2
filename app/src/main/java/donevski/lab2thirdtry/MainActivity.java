@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.Button;
 import android.widget.TextView;
 import donevski.lab2thirdtry.client.OMDBApiClient;
-import donevski.lab2thirdtry.client.OMDBApiService;
 
 import java.util.logging.Logger;
 
