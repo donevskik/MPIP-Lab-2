@@ -8,11 +8,11 @@ import java.util.List;
 public class SearchResults {
     @SerializedName("Search")
     private List<Movie> results;
-    private String totalResults; //might be int or sth
+    private int totalResults; //might be int or sth
     private boolean Response;
 
 
-    public String getTotalResults() {
+    public int getTotalResults() {
         return totalResults;
     }
 

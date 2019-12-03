@@ -11,24 +11,8 @@ public class Movie {
     @SerializedName("Poster")
     private String imageUrl;
 
-    public String getTitle() {
-        return Title;
-    }
-
-    public String getYear() {
-        return Year;
-    }
-
     public String getImdbID() {
         return imdbID;
-    }
-
-    public String getType() {
-        return Type;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
     }
 
     @Override
