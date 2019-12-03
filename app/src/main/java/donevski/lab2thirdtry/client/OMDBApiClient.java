@@ -34,41 +34,42 @@ public class OMDBApiClient {
         return getRetrofit().create(OMDBApiServiceByImdbID.class);
     }
 
-    public static void getResults(String s, final TextView textView){
-        Call<SearchResults> searchResultsCall = getServiceBySearch().getSearchResults(s);
-
-        searchResultsCall.enqueue(new Callback<SearchResults>() {
-            @Override
-            public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
-                if (!response.isSuccessful()){
-                    textView.setText("Error code: " + response.code());
-                    return;
-                }
-                // get MovieDetails here from net for every
-                // results.getResults().get(i).getImdbID();
-                SearchResults results = response.body();
-
-//                StringBuilder sb = new StringBuilder();
-//                sb.append("Results: \n");
-//                if (results.getResults() != null){
+    // this whole thing in MovieDetailsAsyncTask
+//    public static void getResults(String s, final TextView textView){
+//        Call<SearchResults> searchResultsCall = getServiceBySearch().getSearchResults(s);
 //
-//                    for (Movie movie:
-//                            results.getResults()) {
-//                        sb.append(movie).append("\n\n");
-//                    }
+//        searchResultsCall.enqueue(new Callback<SearchResults>() {
+//            @Override
+//            public void onResponse(Call<SearchResults> call, Response<SearchResults> response) {
+//                if (!response.isSuccessful()){
+//                    textView.setText("Error code: " + response.code());
+//                    return;
 //                }
-//                else
-//                    sb.append("Nema takov film\n");
-//                sb.append("Total results:").append(results.getTotalResults()).append("\n");
-//                sb.append("Response: ").append(results.isResponse());
+//                // get MovieDetails here from net for every
+//                // results.getResults().get(i).getImdbID();
+//                SearchResults results = response.body();
 //
-//                textView.setText(sb.toString());
-            }
-
-            @Override
-            public void onFailure(Call<SearchResults> call, Throwable t) {
-                textView.setText(t.getMessage());
-            }
-        });
-    }
+////                StringBuilder sb = new StringBuilder();
+////                sb.append("Results: \n");
+////                if (results.getResults() != null){
+////
+////                    for (Movie movie:
+////                            results.getResults()) {
+////                        sb.append(movie).append("\n\n");
+////                    }
+////                }
+////                else
+////                    sb.append("Nema takov film\n");
+////                sb.append("Total results:").append(results.getTotalResults()).append("\n");
+////                sb.append("Response: ").append(results.isResponse());
+////
+////                textView.setText(sb.toString());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<SearchResults> call, Throwable t) {
+//                textView.setText(t.getMessage());
+//            }
+//        });
+//    }
 }

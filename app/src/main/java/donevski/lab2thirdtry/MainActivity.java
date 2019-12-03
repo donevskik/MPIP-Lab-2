@@ -1,5 +1,8 @@
 package donevski.lab2thirdtry;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -10,19 +13,36 @@ import android.widget.LinearLayout;
 import android.widget.Button;
 import android.widget.TextView;
 import donevski.lab2thirdtry.client.OMDBApiClient;
+import donevski.lab2thirdtry.models.MovieDetails;
+import donevski.lab2thirdtry.viewmodels.MovieDetailsViewModel;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView textViewResult;
 
+    private MovieDetailsViewModel movieDetailsViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        updateData();
         textViewResult = findViewById(R.id.text);
+    }
+
+    private void updateData() {
+        movieDetailsViewModel = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
+
+        movieDetailsViewModel.getAllMovies().observe(this, new Observer<List<MovieDetails>>() {
+            @Override
+            public void onChanged(@Nullable List<MovieDetails> movieDetails) {
+                //adapter updateDataset(movieDetails)
+            }
+        });
     }
 
     @Override
@@ -44,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 //call retrofit to search omdbapi with s
-                OMDBApiClient.getResults(s, textViewResult);
+                movieDetailsViewModel.setSearchBy(s);
                 return false;
             }
 
