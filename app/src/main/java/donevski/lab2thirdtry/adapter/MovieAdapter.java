@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import com.squareup.picasso.Picasso;
 import donevski.lab2thirdtry.R;
 import donevski.lab2thirdtry.models.Movie;
 import donevski.lab2thirdtry.models.MovieDetails;
@@ -30,6 +32,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         MovieDetails movieDetails = movies.get(i);
         movieHolder.textViewTitle.setText(movieDetails.getTitle());
         movieHolder.textViewYear.setText(movieDetails.getYear());
+        Picasso.get().load(movieDetails.getImageUrl()).into(movieHolder.imageView);
     }
 
     @Override
@@ -46,11 +49,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
 
         private TextView textViewTitle;
         private TextView textViewYear;
+        private ImageView imageView;
 
         public MovieHolder(@NonNull View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.text_view_title);
             textViewYear = itemView.findViewById(R.id.text_view_year);
+            imageView = itemView.findViewById(R.id.image_view);
         }
     }
 }
