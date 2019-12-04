@@ -18,6 +18,7 @@ public class MovieDetailsAsyncTask extends AsyncTask<String, Integer, List<Movie
 
     private Repository repository;
     private List<String> imdbIDs;
+    private static int count = 0;
 
     public MovieDetailsAsyncTask(Repository repository){
         this.repository = repository;
@@ -33,6 +34,10 @@ public class MovieDetailsAsyncTask extends AsyncTask<String, Integer, List<Movie
     @Override
     protected List<MovieDetails> doInBackground(String... strings) {
         Call<SearchResults> searchResultsCall = getServiceBySearch().getSearchResults(strings[0]);
+        count++;
+        if (count == 1){
+            count = 0;
+        }
 
         try {
             SearchResults searchResults = searchResultsCall.execute().body();
