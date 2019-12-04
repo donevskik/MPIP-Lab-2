@@ -9,6 +9,7 @@ import donevski.lab2thirdtry.db.Repository;
 import donevski.lab2thirdtry.models.MovieDetails;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class MovieDetailsViewModel extends AndroidViewModel {
 
@@ -19,7 +20,7 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     public MovieDetailsViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
-        fetchData();
+        //fetchData();
     }
 
     public LiveData<List<MovieDetails>> getAllMovies(){
@@ -29,9 +30,12 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     private void fetchData(){
         MovieDetailsAsyncTask movieDetailsAsyncTask = new MovieDetailsAsyncTask(repository);
         movieDetailsAsyncTask.execute(searchBy);
+        Logger logger = Logger.getLogger("MainActivity");
+        logger.info("FETCH DATA CALLED");
     }
 
     public void setSearchBy(String searchBy) {
         this.searchBy = searchBy;
+        fetchData();
     }
 }

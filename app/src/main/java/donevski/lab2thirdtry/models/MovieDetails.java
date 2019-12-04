@@ -11,6 +11,8 @@ import java.util.List;
 @Entity(tableName = "movie_details")
 public class MovieDetails {
 
+    @PrimaryKey(autoGenerate = true)
+    private int idKey;
     private String Title;
     private String Year;
     private String Rated;
@@ -31,8 +33,8 @@ public class MovieDetails {
     private String Metascore;
     private String imdbRating;
     private String imdbVotes;
-    @PrimaryKey
-    @NonNull
+//    @PrimaryKey
+//    @NonNull
     private String imdbID;
     private String Type;
     private String DVD;
@@ -43,6 +45,14 @@ public class MovieDetails {
     private boolean Response;
 
     // May need constructor
+
+    public int getIdKey() {
+        return idKey;
+    }
+
+    public void setIdKey(int idKey) {
+        this.idKey = idKey;
+    }
 
     public void setTitle(String title) {
         Title = title;

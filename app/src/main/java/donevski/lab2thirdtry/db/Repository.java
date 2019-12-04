@@ -9,12 +9,12 @@ import java.util.List;
 
 public class Repository {
     private MovieDetailsDao movieDetailsDao;
-    private LiveData<List<MovieDetails>> allMovies;
+//    private LiveData<List<MovieDetails>> allMovies;
 
     public Repository(Application application) {
         OMDBDatabase database = OMDBDatabase.getInstance(application);
         movieDetailsDao = database.getMovieDetailsDao();
-        allMovies = movieDetailsDao.getAll();
+//        allMovies = movieDetailsDao.getAll();
     }
 
     public void insert(final MovieDetails movieDetails) {
@@ -26,7 +26,8 @@ public class Repository {
     }
 
     public LiveData<List<MovieDetails>> getAllMovies() {
-        return allMovies;
+//        return allMovies;
+        return movieDetailsDao.getAll();
     }
 
     private static class InsertMovieAsyncTask extends AsyncTask<MovieDetails, Void, Void> {

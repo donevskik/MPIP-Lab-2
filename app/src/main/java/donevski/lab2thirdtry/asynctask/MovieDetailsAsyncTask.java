@@ -10,6 +10,7 @@ import retrofit2.Call;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static donevski.lab2thirdtry.client.OMDBApiClient.getServiceByImdbID;
 import static donevski.lab2thirdtry.client.OMDBApiClient.getServiceBySearch;
@@ -29,14 +30,16 @@ public class MovieDetailsAsyncTask extends AsyncTask<String, Integer, List<Movie
     protected void onPreExecute() {
         super.onPreExecute();
         repository.deleteAll();
+        Logger logger = Logger.getLogger("MainActivity");
+        logger.info("DELETED ALL");
     }
 
     @Override
     protected List<MovieDetails> doInBackground(String... strings) {
         Call<SearchResults> searchResultsCall = getServiceBySearch().getSearchResults(strings[0]);
         count++;
-        if (count == 1){
-            count = 0;
+        if (count == 2){
+            count = 1;
         }
 
         try {
@@ -64,6 +67,8 @@ public class MovieDetailsAsyncTask extends AsyncTask<String, Integer, List<Movie
             }
         }
 
+        Logger logger = Logger.getLogger("MainActivity");
+        logger.info("FETCHED FROM NET");
         return ret;
     }
 
