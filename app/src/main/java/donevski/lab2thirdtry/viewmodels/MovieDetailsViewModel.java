@@ -27,6 +27,10 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         return repository.getAllMovies();
     }
 
+    public LiveData<MovieDetails> getMovie(String imdbID){
+        return repository.getMovie(imdbID);
+    }
+
     private void fetchData(){
         MovieDetailsAsyncTask movieDetailsAsyncTask = new MovieDetailsAsyncTask(repository);
         movieDetailsAsyncTask.execute(searchBy);

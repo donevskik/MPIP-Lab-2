@@ -18,6 +18,11 @@ import java.util.List;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
 
     private List<MovieDetails> movies = new ArrayList<>();
+    private View.OnClickListener listener;
+
+    public MovieAdapter(View.OnClickListener listener){
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -33,6 +38,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         movieHolder.textViewTitle.setText(movieDetails.getTitle());
         movieHolder.textViewYear.setText(movieDetails.getYear());
         Picasso.get().load(movieDetails.getImageUrl()).into(movieHolder.imageView);
+
+        movieHolder.setOnClickListener(listener);
     }
 
     @Override
@@ -45,7 +52,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         notifyDataSetChanged();
     }
 
-    class MovieHolder extends RecyclerView.ViewHolder{
+    public String getClickedItemID(MovieHolder holder) {
+        int adapterPosition = holder.getAdapterPosition();
+        return movies.get(adapterPosition).getImdbID();
+    }
+
+    public class MovieHolder extends RecyclerView.ViewHolder{
 
         private TextView textViewTitle;
         private TextView textViewYear;
@@ -56,6 +68,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
             textViewTitle = itemView.findViewById(R.id.text_view_title);
             textViewYear = itemView.findViewById(R.id.text_view_year);
             imageView = itemView.findViewById(R.id.image_view);
+
+            itemView.setTag(this);
+        }
+
+        public void setOnClickListener(View.OnClickListener listener){
+            itemView.setOnClickListener(listener);
         }
     }
 }

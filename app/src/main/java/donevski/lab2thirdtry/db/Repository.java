@@ -30,6 +30,10 @@ public class Repository {
         return movieDetailsDao.getAll();
     }
 
+    public LiveData<MovieDetails> getMovie(String imdbID){
+        return movieDetailsDao.get(imdbID);
+    }
+
     private static class InsertMovieAsyncTask extends AsyncTask<MovieDetails, Void, Void> {
 
         private MovieDetailsDao movieDetailsDao;

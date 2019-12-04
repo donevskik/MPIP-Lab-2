@@ -2,6 +2,7 @@ package donevski.lab2thirdtry;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,11 +12,13 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Button;
 import android.widget.TextView;
 import donevski.lab2thirdtry.adapter.MovieAdapter;
 import donevski.lab2thirdtry.client.OMDBApiClient;
+import donevski.lab2thirdtry.models.Movie;
 import donevski.lab2thirdtry.models.MovieDetails;
 import donevski.lab2thirdtry.viewmodels.MovieDetailsViewModel;
 
@@ -45,8 +48,25 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new MovieAdapter();
+        adapter = new MovieAdapter(getItemViewOnClickListener());
         recyclerView.setAdapter(adapter);
+    }
+
+    private View.OnClickListener getItemViewOnClickListener() {
+        return new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                MovieAdapter.MovieHolder holder = (MovieAdapter.MovieHolder) v.getTag();
+                String selectedImdbID = adapter.getClickedItemID(holder);
+
+                callImplicitMovieDetailsActivity(selectedImdbID);
+
+                Logger logger = Logger.getLogger("MainActivity");
+                logger.info("CLICKED" + selectedImdbID);
+            }
+        };
+
     }
 
     private void updateData() {
@@ -90,5 +110,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    public void callImplicitMovieDetailsActivity(String imdbID){
+        Intent implicitIntent = new Intent("donevski.lab2.OPEN_MOVIE_DETAILS");
+        implicitIntent.addCategory("android.intent.category.DEFAULT");
+        implicitIntent.putExtra("ImdbID", imdbID);
+
+        startActivity(implicitIntent);
     }
 }

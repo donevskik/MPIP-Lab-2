@@ -76,6 +76,9 @@ public class MovieDetailsAsyncTask extends AsyncTask<String, Integer, List<Movie
     protected void onPostExecute(List<MovieDetails> movieDetails) {
         for(MovieDetails movie : movieDetails){
             repository.insert(movie);
+            Logger logger = Logger.getLogger("MainActivity");
+            logger.info("Inserted in Database " + movie.getTitle());
         }
+
     }
 }

@@ -23,5 +23,6 @@ public interface MovieDetailsDao {
     @Query("SELECT * FROM movie_details")
     LiveData<List<MovieDetails>> getAll();
 
-
+    @Query("SELECT * FROM movie_details WHERE imdbID = :imdbID")
+    LiveData<MovieDetails> get(String imdbID);
 }

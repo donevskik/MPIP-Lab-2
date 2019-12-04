@@ -17,7 +17,6 @@ public abstract class OMDBDatabase extends RoomDatabase {
         if (database == null){
             database = Room.databaseBuilder(context.getApplicationContext(),
                     OMDBDatabase.class, "movie_details_db")
-                    .fallbackToDestructiveMigration()
                     .build();
         }
         return database;
